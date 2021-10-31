@@ -27,29 +27,28 @@ class ImoveisrsSpider(scrapy.Spider):
 
 
     def parse_detail(self, response):
-        titulo = response.xpath('/html/body/div[1]/div/div[4]/div[2]/div/div[2]/div[1]/div[14]/div/div/h1/text()').extract_first()
-        #print(titulo)
-        classe = response.xpath('//dt[contains(text(), "Categoria")]/following-sibling::a/text()').extract_first()
+        Titulo = response.xpath('/html/body/div[1]/div/div[4]/div[2]/div/div[2]/div[1]/div[14]/div/div/h1/text()').extract_first()
+        Classe = response.xpath('//dt[contains(text(), "Categoria")]/following-sibling::a/text()').extract_first()
         Tamanho = response.xpath('//dt[contains(text(), "Tamanho")]/following-sibling::a/text()').extract_first()
         Condominio = response.xpath('//dt[contains(text(), "Condomínio")]/following-sibling::dd[1]/text()').extract_first()
         Municipio = response.xpath('//dt[contains(text(), "Município")]/following-sibling::dd[1]/text()').extract_first()
         Bairro = response.xpath('//dt[contains(text(), "Bairro")]/following-sibling::dd[1]/text()').extract_first()
-        valor = response.xpath('/html/body/div[1]/div/div[4]/div[2]/div/div[2]/div[1]/div[12]/div/div/div/div/div[1]/div/h2/text()').extract_first()
-        imagem =  response.xpath('/html/body/div[1]/div/div[4]/div[2]/div/div[2]/div[1]/div[29]/div/div/div/div[2]/div/div[1]/div[1]/img/@src').extract_first()
-        urls = response
+        Valor = response.xpath('/html/body/div[1]/div/div[4]/div[2]/div/div[2]/div[1]/div[12]/div/div/div/div/div[1]/div/h2/text()').extract_first()
+        Imagem =  response.xpath('/html/body/div[1]/div/div[4]/div[2]/div/div[2]/div[1]/div[29]/div/div/div/div[2]/div/div[1]/div[1]/img/@src').extract_first()
+        Urls = response
 
         # yield{
-        #      'titulo'   : titulo,
-        #      'classe'   : classe,
+        #      'Titulo'   : Titulo,
+        #      'Classe'   : Classe,
         #      'Tamanho'   : Tamanho,
         #      'Condominio' : Condominio,
-        #      'valor'    : valor,
+        #      'Valor'    : Valor,
         # }
 
-        if titulo:
-            print("\nImóvel: " + titulo)
-            if classe:
-                print("Classe: " + classe)
+        if Titulo:
+            print("\nImóvel: " + Titulo)
+            if Classe:
+                print("Classe: " + Classe)
             if Tamanho:
                 print("Tamanho: " + Tamanho)
             if Condominio:
@@ -58,9 +57,9 @@ class ImoveisrsSpider(scrapy.Spider):
                 print("Municipio: " + Municipio)
             if Bairro:
                 print("CondomBairroinio: " + Bairro)
-            if valor:
-                print("Valor: " + valor)
-            if imagem:
-                print("Imagem: " + imagem)
+            if Valor:
+                print("Valor: " + Valor)
+            if Imagem:
+                print("Imagem: " + Imagem)
                 print("URL: " + response.request.url)
             print("\n")
