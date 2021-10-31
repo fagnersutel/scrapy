@@ -5,6 +5,8 @@ class ImoveisrsSpider(scrapy.Spider):
     #start_urls = ['https://rs.olx.com.br/imoveis/comercio-e-industria']
     start_urls = ['https://rs.olx.com.br/regioes-de-porto-alegre-torres-e-santa-cruz-do-sul/imoveis/comercio-e-industria']
     start_urls = ['https://rs.olx.com.br/regioes-de-porto-alegre-torres-e-santa-cruz-do-sul?q=box%20garagem']
+    start_urls = ['https://rs.olx.com.br/regioes-de-porto-alegre-torres-e-santa-cruz-do-sul/sul/imoveis/venda?q=galp%C3%A3o']
+
     def parse(self, response):
         #items = response.xpath('//ul[@id="ad-list"]/li[not(contains(@class,"list_native"))]')
         #items = response.xpath('//ul[@id="ad-list"]/li[not(contains(descendant::div]')
@@ -14,8 +16,15 @@ class ImoveisrsSpider(scrapy.Spider):
         for item in items:
             #url = self.log(item.xpath('./a/@href').extract_first())
             url = item.xpath('./a/@href').extract_first()
-            print("aa" + url)
+            #print("aa" + url)
             yield scrapy.Request(url=url, callback=self.parse_detail)
+            proxima_pagina = response.xpath('//a[contains(@class, "sc-1bofr6e-0")]/@href')
+            if proxima_pagina:
+                self.log("Próxima Página: {}". format(proxima_pagina.extract_first()))
+                #self.log("Próxima Página: %s" % format(proxima_pagina))
+                yield scrapy.Request(url=proxima_pagina.extract_first(), callback=self.parse)
+
+
 
     def parse_detail(self, response):
         titulo = response.xpath('/html/body/div[1]/div/div[4]/div[2]/div/div[2]/div[1]/div[14]/div/div/h1/text()').extract_first()
